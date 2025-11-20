@@ -11,6 +11,11 @@ public class WeldablePart : MonoBehaviour
     [Header("Debug Info")]
     [SerializeField] private float currentProgress;
 
+
+    public Transform effectAnchor;
+    public ParticleSystem weldEffectLoop;
+    public ParticleSystem completeEffect;
+
     public bool IsBeingWelded { get; private set; }
     public bool IsCompleted { get; private set; }
 
@@ -42,11 +47,22 @@ public class WeldablePart : MonoBehaviour
             return;
 
         IsBeingWelded = true;
+
+
+        if (weldEffectLoop != null && !weldEffectLoop.isPlaying)
+            weldEffectLoop.Play();
     }
 
     public void StopWeld()
     {
         IsBeingWelded = false;
+
+        if (weldEffectLoop != null && weldEffectLoop.isPlaying)
+            weldEffectLoop.Stop();
+
+        // Final burst effect
+        if (completeEffect != null)
+            completeEffect.Play();
     }
 
     private void CompleteWeld()
@@ -55,6 +71,16 @@ public class WeldablePart : MonoBehaviour
         IsBeingWelded = false;
 
         currentProgress = weldTimeRequired;
+
+        // Final burst effect
+        if (completeEffect != null)
+            completeEffect.Play();
+
+        // Stop the loop effect just in case
+        if (weldEffectLoop != null)
+            weldEffectLoop.Stop();
+
+
         OnProgressChanged?.Invoke(1f);
 
         OnWeldCompleted?.Invoke(this);

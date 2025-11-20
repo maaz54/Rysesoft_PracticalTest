@@ -22,7 +22,11 @@ public class Welder : MonoBehaviour
         else
         {
             if (currentPart != null)
+            {
                 currentPart.StopWeld();
+                currentPart = null;
+            }
+
         }
     }
 
