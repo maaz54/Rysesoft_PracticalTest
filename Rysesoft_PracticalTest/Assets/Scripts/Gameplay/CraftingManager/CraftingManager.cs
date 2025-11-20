@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.UI;
 using UnityEngine;
 
-public class CraftingManager : MonoBehaviour
+namespace Gameplay
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CraftingManager : MonoBehaviour
     {
-        
-    }
+        [SerializeField] CraftingManagerUI craftingManagerUI;
+        [SerializeField] CraftableItem[] craftableItems;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Start()
+        {
+            PopulateUi();
+        }
+
+        private void PopulateUi()
+        {
+            if (craftingManagerUI != null)
+                craftingManagerUI.InitalizeCraftables(craftableItems);
+        }
     }
 }

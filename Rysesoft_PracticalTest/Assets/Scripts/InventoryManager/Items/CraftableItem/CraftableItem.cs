@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CraftableItem", menuName = "Crafting/Craftable Item")]
-public class CraftableItem : Item
+public class CraftableItem : ScriptableObject
 {
-    public GameObject weldShapePrefab;
-    public Item ItemToCraft;
+    public string itemName;
+    public GameObject finalPrefab;
+    public WeldablePart ItemToWeild;
 }

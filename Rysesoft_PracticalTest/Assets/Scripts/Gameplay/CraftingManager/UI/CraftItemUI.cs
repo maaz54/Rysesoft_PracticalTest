@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CraftItemUI : MonoBehaviour
+namespace Gameplay.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CraftItemUI : MonoBehaviour
     {
-        
-    }
+        [SerializeField] CraftableItem craftableItem;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void Initialize(CraftableItem craftableItem)
+        {
+            this.craftableItem = craftableItem;
+        }
     }
 }

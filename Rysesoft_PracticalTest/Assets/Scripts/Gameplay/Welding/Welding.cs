@@ -2,45 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Welding : MonoBehaviour
+namespace Gameplay
 {
-    [Header("Welding Settings")]
-    public float weldDuration = 2f;
-    public GameObject sparksFX;
-    public AudioSource weldSound;
-    public CraftingManager craftingManager;
-    public int itemIndex; // Which item this plane belongs to
-
-    private bool isWelding = false;
-    private bool isCompleted = false;
-
-    public void StartWelding()
+    public class Welding : MonoBehaviour
     {
-        if (isWelding || isCompleted) return;
+        [Header("Welding Settings")]
+        public float weldDuration = 2f;
+        public GameObject sparksFX;
+        public AudioSource weldSound;
+        public CraftingManager craftingManager;
+        public int itemIndex; // Which item this plane belongs to
 
-        isWelding = true;
-        StartCoroutine(WeldRoutine());
-    }
+        private bool isWelding = false;
+        private bool isCompleted = false;
 
-    private IEnumerator WeldRoutine()
-    {
-        // Turn on FX
-        if (sparksFX != null) sparksFX.SetActive(true);
-        if (weldSound != null) weldSound.Play();
+        public void StartWelding()
+        {
+            if (isWelding || isCompleted) return;
 
-        yield return new WaitForSeconds(weldDuration);
+            isWelding = true;
+            StartCoroutine(WeldRoutine());
+        }
 
-        // Turn off FX
-        if (sparksFX != null) sparksFX.SetActive(false);
-        if (weldSound != null) weldSound.Stop();
+        private IEnumerator WeldRoutine()
+        {
+            // Turn on FX
+            if (sparksFX != null) sparksFX.SetActive(true);
+            if (weldSound != null) weldSound.Play();
 
-        isCompleted = true;
+            yield return new WaitForSeconds(weldDuration);
 
-        // Tell crafting manager welding is done
-        // if (craftingManager != null)
+            // Turn off FX
+            if (sparksFX != null) sparksFX.SetActive(false);
+            if (weldSound != null) weldSound.Stop();
+
+            isCompleted = true;
+
+            // Tell crafting manager welding is done
+            // if (craftingManager != null)
             // craftingManager.SpawnFinalItem(itemIndex);
 
-        // Remove weld plane
-        Destroy(gameObject);
+            // Remove weld plane
+            Destroy(gameObject);
+        }
     }
 }
