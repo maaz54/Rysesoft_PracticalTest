@@ -16,7 +16,7 @@ namespace Gameplay.Player
         [SerializeField] float mouseSensitivity = 100f;
         [SerializeField] float xRotation = 0f;
         [SerializeField] float cameraLimit = 0f;
-
+        [SerializeField] private bool cursorUnlocked = false;
 
         private CharacterController controller;
         private Vector3 velocity;
@@ -27,15 +27,39 @@ namespace Gameplay.Player
         void Start()
         {
             controller = GetComponent<CharacterController>();
-            Cursor.lockState = CursorLockMode.Locked;
+            // Cursor.lockState = CursorLockMode.Locked;
         }
 
         void Update()
         {
-            HandleMovement();
-            HandleMouseLook();
-            HandlePickup();
+            HandleCursorToggle();
+            if (!cursorUnlocked)
+            {
+                HandleMovement();
+                HandleMouseLook();
+                HandlePickup();
+            }
         }
+
+        private void HandleCursorToggle()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                cursorUnlocked = !cursorUnlocked;
+
+                if (cursorUnlocked)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+            }
+        }
+
 
         private void HandleMovement()
         {
