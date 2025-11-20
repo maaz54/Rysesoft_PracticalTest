@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class WeldablePart : MonoBehaviour
 {
+    [SerializeField] CraftableItem ItemToCraft;
+
     [Header("Welding Settings")]
     [SerializeField] private float weldTimeRequired = 2f;
 
     [Header("Debug Info")]
     [SerializeField] private float currentProgress;
-
 
     public Transform effectAnchor;
     public ParticleSystem weldEffectLoop;
@@ -20,7 +21,7 @@ public class WeldablePart : MonoBehaviour
     public bool IsCompleted { get; private set; }
 
     // Fired when welding completes
-    public event Action<WeldablePart> OnWeldCompleted;
+    public event Action<WeldablePart, CraftableItem> OnWeldCompleted;
     // Fired when progress updates
     public event Action<float> OnProgressChanged;
 
@@ -83,7 +84,7 @@ public class WeldablePart : MonoBehaviour
 
         OnProgressChanged?.Invoke(1f);
 
-        OnWeldCompleted?.Invoke(this);
+        OnWeldCompleted?.Invoke(this, ItemToCraft);
 
         Debug.Log($"{name} Weld Complete!");
     }

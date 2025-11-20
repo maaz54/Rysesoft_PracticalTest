@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ba65251f68276439d12233b45c7589, type: 3}
   m_Name: TriangleCraftable
   m_EditorClassIdentifier: 
-  itemName: 
-  Prefab: {fileID: 0}
-  weldShapePrefab: {fileID: 0}
-  ItemToCraft: {fileID: 0}
+  itemName: Triangle
+  finalPrefab: {fileID: 0}
+  ItemToWeild: {fileID: 0}

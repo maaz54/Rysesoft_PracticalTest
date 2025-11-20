@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ namespace Gameplay.UI
 {
     public class CraftingManagerUI : MonoBehaviour
     {
+        public Action<CraftableItem> OnCraftItemSelected;
+
         [SerializeField] Transform craftableItemHolder;
         [SerializeField] CraftItemUI craftableItemPrefab;
         [SerializeField] List<CraftItemUI> craftableUiItems;
@@ -20,7 +23,13 @@ namespace Gameplay.UI
                 CraftItemUI craftItemUI = Instantiate(craftableItemPrefab, craftableItemHolder);
                 craftItemUI.Initialize(item);
                 craftableUiItems.Add(craftItemUI);
+                craftItemUI.OnItemSelected += OnItemSelected;
             }
+        }
+
+        private void OnItemSelected(CraftableItem craftableItem)
+        {
+            OnCraftItemSelected?.Invoke(craftableItem);
         }
     }
 }
