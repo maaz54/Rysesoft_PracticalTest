@@ -8,6 +8,7 @@ namespace Gameplay
 {
     public class CraftingManager : MonoBehaviour
     {
+        [SerializeField] UIManager uIManager;
         [SerializeField] CraftingManagerUI craftingManagerUI;
         [SerializeField] CraftableItem[] craftableItems;
         [SerializeField] CraftingTable craftingTable;
@@ -28,16 +29,18 @@ namespace Gameplay
         private void OnCraftItemSelected(CraftableItem craftableItem)
         {
             WeldablePart weldablePart =
-                 Instantiate(craftableItem.ItemToWeild, 
-                            craftingTable.SpawnPoint.transform.position, 
+                 Instantiate(craftableItem.ItemToWeild,
+                            craftingTable.SpawnPoint.transform.position,
                             craftingTable.SpawnPoint.transform.rotation);
 
             weldablePart.OnWeldCompleted += OnWeldingComplete;
+            uIManager.CloseAllwindow();
+
         }
 
         private void OnWeldingComplete(WeldablePart weldablePart, CraftableItem craftableItem)
         {
-            GameObject gameObject = 
+            GameObject gameObject =
             Instantiate(craftableItem.finalPrefab,
                         craftingTable.SpawnPoint.transform.position,
                         craftingTable.SpawnPoint.transform.rotation);

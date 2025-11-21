@@ -28,9 +28,6 @@ public class Welder : MonoBehaviour
             }
 
         }
-
-
-        if (currentPart != null) Debug.Log("currentPart: " + currentPart.transform.name);
     }
 
     private void TryWeld()
@@ -40,7 +37,6 @@ public class Welder : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 3f))
         {
             WeldablePart wp = hit.collider.GetComponent<WeldablePart>();
-            Debug.Log("wp: " + wp.transform.name);
             if (wp != null)
             {
                 if (currentPart != wp)

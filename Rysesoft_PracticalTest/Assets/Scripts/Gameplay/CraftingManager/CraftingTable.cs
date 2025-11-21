@@ -8,6 +8,7 @@ public class CraftingTable : MonoBehaviour
 
 
     public GameObject craftingUIPanel;
+    public GameObject PileUIPanel;
     public GameObject Hint;
     private bool playerInRange = false;
 
@@ -15,6 +16,9 @@ public class CraftingTable : MonoBehaviour
     {
         if (craftingUIPanel != null)
             craftingUIPanel.SetActive(false);
+
+        if (PileUIPanel != null)
+            PileUIPanel.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,6 +41,9 @@ public class CraftingTable : MonoBehaviour
             if (craftingUIPanel != null)
                 craftingUIPanel.SetActive(false);
 
+            if (PileUIPanel != null)
+                PileUIPanel.SetActive(false);
+
             Hint.SetActive(false);
         }
     }
@@ -47,7 +54,13 @@ public class CraftingTable : MonoBehaviour
         {
             if (craftingUIPanel != null)
                 craftingUIPanel.SetActive(!craftingUIPanel.activeSelf); // toggle UI panel
-                Hint.SetActive(!craftingUIPanel.activeSelf); // toggle UI panel
+            Hint.SetActive(!craftingUIPanel.activeSelf); // toggle UI panel
+        }
+        else if (playerInRange && Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (PileUIPanel != null)
+                PileUIPanel.SetActive(!PileUIPanel.activeSelf); // toggle UI panel
+            Hint.SetActive(!PileUIPanel.activeSelf); // toggle UI panel
         }
     }
 }

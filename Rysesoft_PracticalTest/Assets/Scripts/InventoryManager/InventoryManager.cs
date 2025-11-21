@@ -6,20 +6,20 @@ namespace Inventory
 {
     public class InventoryManager : MonoBehaviour
     {
-        public List<GameObject> playerInventory = new List<GameObject>();
-        public List<GameObject> storageInventory = new List<GameObject>();
+        public List<Item> playerInventory = new List<Item>();
+        public List<Item> storageInventory = new List<Item>();
 
-        public void AddToPlayerInventory(GameObject item)
+        public void AddToPlayerInventory(Item item)
         {
             playerInventory.Add(item);
-            item.SetActive(false); // Simulate pickup 
+            item.gameObject.SetActive(false); // Simulate pickup 
             Debug.Log(item.name + " added to Player Inventory");
         }
 
-        public void AddToStorage(GameObject item)
+        public void AddToStorage(Item item)
         {
             storageInventory.Add(item);
-            item.SetActive(false);
+            item.gameObject.SetActive(false);
             Debug.Log(item.name + " added to Storage");
         }
 
