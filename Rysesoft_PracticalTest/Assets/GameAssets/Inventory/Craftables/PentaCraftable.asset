@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ba65251f68276439d12233b45c7589, type: 3}
-  m_Name: TriangleCraftable
+  m_Name: PentaCraftable
   m_EditorClassIdentifier: 
-  itemName: Triangle
-  finalPrefab: {fileID: 0}
-  ItemToWeild: {fileID: 0}
+  itemName: Penta
+  finalPrefab: {fileID: 3974226604288920542, guid: be4fb47a4763f9d47a520157b44fab72,
+    type: 3}
+  ItemToWeild:
+  - {fileID: 1258365240882755533, guid: e4bbb54a456332f408c4c8b2601e460f, type: 3}

@@ -7,5 +7,5 @@ public class CraftableItem : ScriptableObject
 {
     public string itemName;
     public Item finalPrefab;
-    public WeldablePart ItemToWeild;
+    public WeldablePart[] ItemToWeild;
 }

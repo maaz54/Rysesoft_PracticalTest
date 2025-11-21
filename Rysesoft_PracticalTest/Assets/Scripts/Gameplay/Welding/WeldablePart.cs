@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeldablePart : MonoBehaviour
 {
+    public Image progressFill;
+
     [SerializeField] CraftableItem ItemToCraft;
 
     [Header("Welding Settings")]
@@ -35,6 +38,8 @@ public class WeldablePart : MonoBehaviour
         if (IsBeingWelded)
         {
             currentProgress += Time.deltaTime;
+            progressFill.fillAmount = currentProgress / weldTimeRequired;
+
             OnProgressChanged?.Invoke(currentProgress / weldTimeRequired);
 
             if (currentProgress >= weldTimeRequired)

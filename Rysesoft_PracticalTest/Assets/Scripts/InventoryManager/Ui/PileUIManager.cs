@@ -30,6 +30,8 @@ public class PileUIManager : MonoBehaviour
     public void RemoveItem(Item item)
     {
         items.Remove(item);
-        uiItems.Remove(uiItems.FirstOrDefault(i => i.Item == item));
+        PileItemUI itemUi = uiItems.FirstOrDefault(i => i.Item == item);
+        uiItems.Remove(itemUi);
+        Destroy(itemUi.gameObject);
     }
 }
