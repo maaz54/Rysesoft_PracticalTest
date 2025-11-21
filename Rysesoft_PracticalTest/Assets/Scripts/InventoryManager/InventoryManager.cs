@@ -6,23 +6,25 @@ namespace Inventory
 {
     public class InventoryManager : MonoBehaviour
     {
-        public List<Item> playerInventory = new List<Item>();
-        public List<Item> storageInventory = new List<Item>();
+        [SerializeField] InventoryManagerUI inventoryUI;
+        [SerializeField] List<Item> storageInventory = new List<Item>();
 
-        public void AddToPlayerInventory(Item item)
-        {
-            playerInventory.Add(item);
-            item.gameObject.SetActive(false); // Simulate pickup 
-            Debug.Log(item.name + " added to Player Inventory");
-        }
+        [Header("Stack Settings")]
+        [SerializeField] Transform stackPoint;      // where the first item appears
+        [SerializeField] Vector3 stackOffset = new Vector3(0, 0.2f, 0);
 
         public void AddToStorage(Item item)
         {
             storageInventory.Add(item);
-            item.gameObject.SetActive(false);
-            Debug.Log(item.name + " added to Storage");
-        }
+            inventoryUI.AddItem(item);
 
+
+            Vector3 newPos = stackPoint.position + (stackOffset * (storageInventory.Count - 1));
+            item.transform.position = newPos;
+
+            // Optional: reset rotation to stack neatly
+            item.transform.rotation = stackPoint.rotation;
+        }
     }
 
 }

@@ -6,6 +6,6 @@ using UnityEngine;
 public class CraftableItem : ScriptableObject
 {
     public string itemName;
-    public GameObject finalPrefab;
+    public Item finalPrefab;
     public WeldablePart ItemToWeild;
 }

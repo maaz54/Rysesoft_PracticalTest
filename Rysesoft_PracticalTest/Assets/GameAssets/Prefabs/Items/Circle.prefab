@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5d0ee7052bbc9439f738bee999a3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemName: Circle
 --- !u!54 &115650307815078904
 Rigidbody:
   m_ObjectHideFlags: 0

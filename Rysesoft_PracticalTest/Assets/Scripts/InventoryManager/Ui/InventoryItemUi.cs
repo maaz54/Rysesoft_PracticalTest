@@ -1,28 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
-public class PileItemUI : MonoBehaviour
+
+public class InventoryItemUi : MonoBehaviour
 {
-    [SerializeField] Item item;
+    [SerializeField] Item craftableItem;
     [SerializeField] TextMeshProUGUI itemName;
     [SerializeField] Button button;
     public Action<Item> OnItemSelected;
 
-    public Item Item => item;
-
     public void Initialize(Item item)
     {
-        this.item = item;
+        this.craftableItem = item;
         itemName.text = item.ItemName;
         button.onClick.AddListener(OnSelected);
     }
 
     public void OnSelected()
     {
-        OnItemSelected?.Invoke(item);
+        OnItemSelected?.Invoke(craftableItem);
     }
 }

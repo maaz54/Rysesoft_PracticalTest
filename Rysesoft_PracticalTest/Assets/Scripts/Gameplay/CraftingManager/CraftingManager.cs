@@ -9,6 +9,7 @@ namespace Gameplay
     public class CraftingManager : MonoBehaviour
     {
         [SerializeField] UIManager uIManager;
+        [SerializeField] PileManager pileManager;
         [SerializeField] CraftingManagerUI craftingManagerUI;
         [SerializeField] CraftableItem[] craftableItems;
         [SerializeField] CraftingTable craftingTable;
@@ -40,10 +41,12 @@ namespace Gameplay
 
         private void OnWeldingComplete(WeldablePart weldablePart, CraftableItem craftableItem)
         {
-            GameObject gameObject =
+            Item item =
             Instantiate(craftableItem.finalPrefab,
                         craftingTable.SpawnPoint.transform.position,
                         craftingTable.SpawnPoint.transform.rotation);
+
+            pileManager.AddToStorage(item);
 
             Destroy(weldablePart.gameObject);
         }

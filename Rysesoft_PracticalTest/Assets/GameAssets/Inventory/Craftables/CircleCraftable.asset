@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CircleCraftable
   m_EditorClassIdentifier: 
   itemName: Circle
-  finalPrefab: {fileID: 6954758372675618198, guid: f28cffb3ffa2fc74ea0ad99c78920614,
+  finalPrefab: {fileID: 3585698038694180779, guid: f28cffb3ffa2fc74ea0ad99c78920614,
     type: 3}
   ItemToWeild: {fileID: 1258365240882755533, guid: 35db0cf9193f7ce48a83cea3a7ab0c88,
     type: 3}

@@ -1,17 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using UnityEngine;
 
 public class PileManager : MonoBehaviour
 {
-    public List<Item> playerInventory = new List<Item>();
-    public List<Item> storageInventory = new List<Item>();
+    [SerializeField] InventoryManager InventoryManager;
+    [SerializeField] PileUIManager pileUIManager;
+    [SerializeField] List<Item> storageInventory = new List<Item>();
+
+    private void Start()
+    {
+        pileUIManager.OnItemSelect += MoveItemToInventory;
+    }
 
     public void AddToStorage(Item item)
     {
         storageInventory.Add(item);
-        item.gameObject.SetActive(false);
+        pileUIManager.AddItem(item);
         Debug.Log(item.name + " added to Storage");
+    }
+
+    private void MoveItemToInventory(Item item)
+    {
+        pileUIManager.RemoveItem(item);
+        InventoryManager.AddToStorage(item);
     }
 
 }
