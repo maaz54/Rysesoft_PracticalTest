@@ -374,6 +374,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Star
       objectReference: {fileID: 0}
+    - target: {fileID: 4088218776108756212, guid: 618c83ca4e374a0459c6e34c653b114f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -5362067962036501136, guid: 618c83ca4e374a0459c6e34c653b114f, type: 3}
     - {fileID: -8421902321872814903, guid: 618c83ca4e374a0459c6e34c653b114f, type: 3}

@@ -72,7 +72,7 @@ namespace Gameplay
             int count = craftableItem.ItemToWeild.Length;
 
             int columns = 3;      // how many per row
-            float spacing = 1f;   // distance between items
+            float spacing = .25f;   // distance between items
 
             for (int i = 0; i < count; i++)
             {
