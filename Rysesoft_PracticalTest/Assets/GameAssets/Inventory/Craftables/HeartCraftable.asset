@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ba65251f68276439d12233b45c7589, type: 3}
+  m_Name: HeartCraftable
+  m_EditorClassIdentifier: 
+  itemName: Heart
+  finalPrefab: {fileID: 8868861439008532166, guid: e775c18610f43bf48a5f90decfba94b0,
+    type: 3}
+  ItemToWeild:
+  - {fileID: 1258365240882755533, guid: 460b3fad05dc7a544a7306d751b7237b, type: 3}
