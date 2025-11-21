@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ba65251f68276439d12233b45c7589, type: 3}
-  m_Name: RectangleCraftable
+  m_Name: StarCraftable
   m_EditorClassIdentifier: 
-  itemName: Rectangle
-  finalPrefab: {fileID: 0}
-  ItemToWeild: {fileID: 0}
+  itemName: Star
+  finalPrefab: {fileID: 4088218776108756212, guid: 618c83ca4e374a0459c6e34c653b114f,
+    type: 3}
+  ItemToWeild: {fileID: 1258365240882755533, guid: 546793ad0a976f946a2d1e5c8aff982c,
+    type: 3}

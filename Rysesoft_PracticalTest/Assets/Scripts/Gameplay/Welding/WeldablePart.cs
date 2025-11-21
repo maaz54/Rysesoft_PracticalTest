@@ -25,6 +25,8 @@ public class WeldablePart : MonoBehaviour
     // Fired when progress updates
     public event Action<float> OnProgressChanged;
 
+    private Vector3 currentWeldPoint;
+
     private void Update()
     {
         if (IsCompleted)
@@ -42,16 +44,21 @@ public class WeldablePart : MonoBehaviour
         }
     }
 
-    public void StartWeld()
+    public void StartWeld(Vector3 weldPoint)
     {
         if (IsCompleted)
             return;
+
+        currentWeldPoint = weldPoint;
 
         IsBeingWelded = true;
 
 
         if (weldEffectLoop != null && !weldEffectLoop.isPlaying)
+        {
             weldEffectLoop.Play();
+        }
+        weldEffectLoop.transform.position = weldPoint;
     }
 
     public void StopWeld()
@@ -64,6 +71,9 @@ public class WeldablePart : MonoBehaviour
         // Final burst effect
         if (completeEffect != null)
             completeEffect.Play();
+
+        if (completeEffect != null)
+            completeEffect.transform.position = currentWeldPoint;
     }
 
     private void CompleteWeld()
