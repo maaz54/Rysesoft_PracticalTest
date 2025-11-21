@@ -5,24 +5,42 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PileItemUI : MonoBehaviour
+namespace Inventory
 {
-    [SerializeField] Item item;
-    [SerializeField] TextMeshProUGUI itemName;
-    [SerializeField] Button button;
-    public Action<Item> OnItemSelected;
 
-    public Item Item => item;
-
-    public void Initialize(Item item)
+    /// <summary>
+    /// Represents a single item in the Pile (storage) UI.
+    /// </summary>
+    public class PileItemUI : MonoBehaviour
     {
-        this.item = item;
-        itemName.text = item.ItemName;
-        button.onClick.AddListener(OnSelected);
-    }
+        [SerializeField] Item item;
+        [SerializeField] TextMeshProUGUI itemName;
+        [SerializeField] Button button;
+        public Action<Item> OnItemSelected;
 
-    public void OnSelected()
-    {
-        OnItemSelected?.Invoke(item);
+        /// <summary>
+        /// Exposes the underlying item.
+        ///  </summary>
+        public Item Item => item;
+
+
+        /// <summary>
+        /// Initializes the UI element with the given item.
+        /// </summary>
+        public void Initialize(Item item)
+        {
+            this.item = item;
+            itemName.text = item.ItemName;
+            button.onClick.AddListener(OnSelected);
+        }
+
+
+        /// <summary>
+        /// Called when the button is clicked.
+        /// </summary>
+        public void OnSelected()
+        {
+            OnItemSelected?.Invoke(item);
+        }
     }
 }

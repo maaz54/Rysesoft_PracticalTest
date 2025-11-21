@@ -6,22 +6,38 @@ using TMPro;
 using UnityEngine.UI;
 
 
-public class InventoryItemUi : MonoBehaviour
+namespace Inventory
 {
-    [SerializeField] Item craftableItem;
-    [SerializeField] TextMeshProUGUI itemName;
-    [SerializeField] Button button;
-    public Action<Item> OnItemSelected;
 
-    public void Initialize(Item item)
+    public class InventoryItemUi : MonoBehaviour
     {
-        this.craftableItem = item;
-        itemName.text = item.ItemName;
-        button.onClick.AddListener(OnSelected);
-    }
+        [SerializeField] Item craftableItem;
+        [SerializeField] TextMeshProUGUI itemName;
+        [SerializeField] Button button;
 
-    public void OnSelected()
-    {
-        OnItemSelected?.Invoke(craftableItem);
+
+        /// <summary> 
+        /// Event fired when the player selects this item. 
+        /// Subscribers receive the Item instance. 
+        /// </summary>
+        public Action<Item> OnItemSelected;
+
+        /// <summary> 
+        /// Initializes the UI element with an item.
+        ///  </summary>
+        public void Initialize(Item item)
+        {
+            this.craftableItem = item;
+            itemName.text = item.ItemName;
+            button.onClick.AddListener(OnSelected);
+        }
+
+        /// <summary>
+        /// Called when the player clicks the button.
+        /// </summary>
+        public void OnSelected()
+        {
+            OnItemSelected?.Invoke(craftableItem);
+        }
     }
 }

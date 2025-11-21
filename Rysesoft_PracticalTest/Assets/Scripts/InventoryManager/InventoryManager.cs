@@ -21,6 +21,10 @@ namespace Inventory
             this.inventoryUI = inventoryUI;
         }
 
+
+        /// <summary>
+        /// Adds an item to the inventory.
+        /// </summary>
         public void AddToStorage(Item item)
         {
             storageInventory.Add(item);

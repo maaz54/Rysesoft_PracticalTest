@@ -4,35 +4,48 @@ using Inventory;
 using UnityEngine;
 using Zenject;
 
-public class PileManager : MonoBehaviour
+namespace Inventory
 {
-    InventoryManager InventoryManager;
-    PileUIManager pileUIManager;
-    [SerializeField] List<Item> storageInventory = new List<Item>();
 
-    [Inject]
-    public void Construct(InventoryManager InventoryManager, PileUIManager pileUIManager)
+    /// <summary>
+    /// Manages the storage (pile) of crafted items.
+    /// </summary>
+    public class PileManager : MonoBehaviour
     {
-        this.InventoryManager = InventoryManager;
-        this.pileUIManager = pileUIManager;
-    }
+        InventoryManager InventoryManager;
+        PileUIManager pileUIManager;
+        [SerializeField] List<Item> storageInventory = new List<Item>();
 
-    private void Start()
-    {
-        pileUIManager.OnItemSelect += MoveItemToInventory;
-    }
+        [Inject]
+        public void Construct(InventoryManager InventoryManager, PileUIManager pileUIManager)
+        {
+            this.InventoryManager = InventoryManager;
+            this.pileUIManager = pileUIManager;
+        }
 
-    public void AddToStorage(Item item)
-    {
-        storageInventory.Add(item);
-        pileUIManager.AddItem(item);
-        Debug.Log(item.name + " added to Storage");
-    }
+        private void Start()
+        {
+            pileUIManager.OnItemSelect += MoveItemToInventory;
+        }
 
-    private void MoveItemToInventory(Item item)
-    {
-        pileUIManager.RemoveItem(item);
-        InventoryManager.AddToStorage(item);
-    }
+        /// <summary>
+        /// Adds an item to the pile and updates the UI.
+        /// </summary>
+        public void AddToStorage(Item item)
+        {
+            storageInventory.Add(item);
+            pileUIManager.AddItem(item);
+            Debug.Log(item.name + " added to Storage");
+        }
 
+        /// <summary>
+        /// Moves the selected item from the pile to the player's inventory.
+        /// </summary>
+        private void MoveItemToInventory(Item item)
+        {
+            pileUIManager.RemoveItem(item);
+            InventoryManager.AddToStorage(item);
+        }
+
+    }
 }

@@ -37,10 +37,14 @@ namespace Gameplay.Player
             {
                 HandleMovement();
                 HandleMouseLook();
-                HandlePickup();
             }
         }
 
+        /// <summary>
+        /// Toggles mouse cursor lock/unlock when pressing Escape.
+        /// Unlocked cursor = free to click UI.
+        /// Locked cursor = FPS movement enabled.
+        /// </summary>
         private void HandleCursorToggle()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -60,7 +64,9 @@ namespace Gameplay.Player
             }
         }
 
-
+        /// <summary>
+        /// Handles player movement, jumping, gravity.
+        /// </summary>
         private void HandleMovement()
         {
             isGrounded = controller.isGrounded;
@@ -80,6 +86,9 @@ namespace Gameplay.Player
             controller.Move(velocity * Time.deltaTime);
         }
 
+        /// <summary>
+        /// Handles camera rotation (FPS-style mouse look).
+        /// </summary>
         private void HandleMouseLook()
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -90,24 +99,6 @@ namespace Gameplay.Player
 
             cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             transform.Rotate(Vector3.up * mouseX);
-        }
-
-        private void HandlePickup()
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                // Simple pickup check
-                Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
-                if (Physics.Raycast(ray, out RaycastHit hit, 2f))
-                {
-                    if (hit.collider.CompareTag("CraftedItem"))
-                    {
-                        // InventoryManager inv = FindObjectOfType<InventoryManager>();
-                        // if (inv != null)
-                        //     inv.AddToPlayerInventory(hit.collider.gameObject);
-                    }
-                }
-            }
         }
     }
 }

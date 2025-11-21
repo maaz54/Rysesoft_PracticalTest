@@ -3,104 +3,118 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Inventory;
 
-public class WeldablePart : MonoBehaviour
+namespace Gameplay
 {
-    public Image progressFill;
 
-    [SerializeField] CraftableItem ItemToCraft;
-
-    [Header("Welding Settings")]
-    [SerializeField] private float weldTimeRequired = 2f;
-
-    [Header("Debug Info")]
-    [SerializeField] private float currentProgress;
-
-    public Transform effectAnchor;
-    public ParticleSystem weldEffectLoop;
-    public ParticleSystem completeEffect;
-
-    public bool IsBeingWelded { get; private set; }
-    public bool IsCompleted { get; private set; }
-
-    // Fired when welding completes
-    public event Action<WeldablePart, CraftableItem> OnWeldCompleted;
-    // Fired when progress updates
-    public event Action<float> OnProgressChanged;
-
-    private Vector3 currentWeldPoint;
-
-    private void Update()
+    public class WeldablePart : MonoBehaviour
     {
-        if (IsCompleted)
-            return;
+        public Image progressFill;
 
-        if (IsBeingWelded)
+        [SerializeField] CraftableItem ItemToCraft;
+
+        [Header("Welding Settings")]
+        [SerializeField] private float weldTimeRequired = 2f;
+
+        [Header("Debug Info")]
+        [SerializeField] private float currentProgress;
+
+        public Transform effectAnchor;
+        public ParticleSystem weldEffectLoop;
+        public ParticleSystem completeEffect;
+
+        public bool IsBeingWelded { get; private set; }
+        public bool IsCompleted { get; private set; }
+
+        // Fired when welding completes
+        public event Action<WeldablePart, CraftableItem> OnWeldCompleted;
+        // Fired when progress updates
+        public event Action<float> OnProgressChanged;
+
+        private Vector3 currentWeldPoint;
+
+        private void Update()
         {
-            currentProgress += Time.deltaTime;
-            progressFill.fillAmount = currentProgress / weldTimeRequired;
+            if (IsCompleted)
+                return;
 
-            OnProgressChanged?.Invoke(currentProgress / weldTimeRequired);
-
-            if (currentProgress >= weldTimeRequired)
+            if (IsBeingWelded)
             {
-                CompleteWeld();
+                currentProgress += Time.deltaTime;
+                progressFill.fillAmount = currentProgress / weldTimeRequired;
+
+                OnProgressChanged?.Invoke(currentProgress / weldTimeRequired);
+
+                if (currentProgress >= weldTimeRequired)
+                {
+                    CompleteWeld();
+                }
             }
         }
-    }
 
-    public void StartWeld(Vector3 weldPoint)
-    {
-        if (IsCompleted)
-            return;
-
-        currentWeldPoint = weldPoint;
-
-        IsBeingWelded = true;
-
-
-        if (weldEffectLoop != null && !weldEffectLoop.isPlaying)
+        /// <summary>
+        /// Called when welding starts.
+        /// </summary>
+        public void StartWeld(Vector3 weldPoint)
         {
-            weldEffectLoop.Play();
+            if (IsCompleted)
+                return;
+
+            currentWeldPoint = weldPoint;
+
+            IsBeingWelded = true;
+
+
+            if (weldEffectLoop != null && !weldEffectLoop.isPlaying)
+            {
+                weldEffectLoop.Play();
+            }
+            weldEffectLoop.transform.position = weldPoint;
         }
-        weldEffectLoop.transform.position = weldPoint;
-    }
 
-    public void StopWeld()
-    {
-        IsBeingWelded = false;
+        /// <summary>
+        /// Called when welding stops or is interrupted.
+        /// </summary>
+        public void StopWeld()
+        {
+            IsBeingWelded = false;
 
-        if (weldEffectLoop != null && weldEffectLoop.isPlaying)
-            weldEffectLoop.Stop();
+            if (weldEffectLoop != null && weldEffectLoop.isPlaying)
+                weldEffectLoop.Stop();
 
-        // Final burst effect
-        if (completeEffect != null)
-            completeEffect.Play();
+            // Final burst effect
+            if (completeEffect != null)
+                completeEffect.Play();
 
-        if (completeEffect != null)
-            completeEffect.transform.position = currentWeldPoint;
-    }
+            if (completeEffect != null)
+                completeEffect.transform.position = currentWeldPoint;
+        }
 
-    private void CompleteWeld()
-    {
-        IsCompleted = true;
-        IsBeingWelded = false;
+        /// <summary>
+        /// Called when welding is completed.
+        /// </summary>
+        private void CompleteWeld()
+        {
+            IsCompleted = true;
+            IsBeingWelded = false;
 
-        currentProgress = weldTimeRequired;
+            currentProgress = weldTimeRequired;
 
-        // Final burst effect
-        if (completeEffect != null)
-            completeEffect.Play();
+            // Final burst effect
+            if (completeEffect != null)
+                completeEffect.Play();
 
-        // Stop the loop effect just in case
-        if (weldEffectLoop != null)
-            weldEffectLoop.Stop();
+            // Stop the loop effect just in case
+            if (weldEffectLoop != null)
+                weldEffectLoop.Stop();
 
 
-        OnProgressChanged?.Invoke(1f);
+            OnProgressChanged?.Invoke(1f);
 
-        OnWeldCompleted?.Invoke(this, ItemToCraft);
+            OnWeldCompleted?.Invoke(this, ItemToCraft);
 
-        Debug.Log($"{name} Weld Complete!");
+            Debug.Log($"{name} Weld Complete!");
+        }
     }
 }

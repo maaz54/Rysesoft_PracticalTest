@@ -1,79 +1,91 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Welder : MonoBehaviour
+namespace Gameplay
 {
-    Camera cam;
-    private WeldablePart currentPart;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip weldSound;
-    private bool isWeldingSoundPlaying = false;
-
-    private void Start()
+    public class Welder : MonoBehaviour
     {
-        cam = Camera.main;
-    }
+        Camera cam;
+        private WeldablePart currentPart;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip weldSound;
+        private bool isWeldingSoundPlaying = false;
 
-    private void Update()
-    {
-        if (Input.GetMouseButton(0))
+        private void Start()
         {
-            TryWeld();
+            cam = Camera.main;
         }
-        else
+
+        private void Update()
         {
-            StopWeldSound();
-            if (currentPart != null)
+            if (Input.GetMouseButton(0))
             {
-                currentPart.StopWeld();
-                currentPart = null;
+                TryWeld();
             }
-
-        }
-    }
-
-    private void TryWeld()
-    {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
-        {
-            WeldablePart wp = hit.collider.GetComponent<WeldablePart>();
-            if (wp != null)
+            else
             {
-                if (currentPart != wp)
+                StopWeldSound();
+                if (currentPart != null)
                 {
-                    currentPart?.StopWeld();
-                    currentPart = wp;
+                    currentPart.StopWeld();
+                    currentPart = null;
                 }
-                PlayWeldSound();
-                currentPart.StartWeld(hit.point);
+
             }
         }
-        else
-        {
-            StopWeldSound();
-        }
-    }
 
-    private void PlayWeldSound()
-    {
-        if (!isWeldingSoundPlaying)
+        /// <summary>
+        /// Performs raycast from mouse to detect weldable parts.
+        /// Starts welding if a part is hit.
+        /// </summary>
+        private void TryWeld()
         {
-            audioSource.clip = weldSound;
-            audioSource.loop = true;
-            audioSource.Play();
-            isWeldingSoundPlaying = true;
-        }
-    }
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-    private void StopWeldSound()
-    {
-        if (isWeldingSoundPlaying)
+            if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+            {
+                WeldablePart wp = hit.collider.GetComponent<WeldablePart>();
+                if (wp != null)
+                {
+                    if (currentPart != wp)
+                    {
+                        currentPart?.StopWeld();
+                        currentPart = wp;
+                    }
+                    PlayWeldSound();
+                    currentPart.StartWeld(hit.point);
+                }
+            }
+            else
+            {
+                StopWeldSound();
+            }
+        }
+
+        /// <summary>
+        /// Plays the welding sound in a loop if not already playing.
+        /// </summary>
+        private void PlayWeldSound()
         {
-            audioSource.Stop();
-            isWeldingSoundPlaying = false;
+            if (!isWeldingSoundPlaying)
+            {
+                audioSource.clip = weldSound;
+                audioSource.loop = true;
+                audioSource.Play();
+                isWeldingSoundPlaying = true;
+            }
+        }
+
+        /// <summary>
+        /// Stops the welding sound if it is playing.
+        /// </summary>
+        private void StopWeldSound()
+        {
+            if (isWeldingSoundPlaying)
+            {
+                audioSource.Stop();
+                isWeldingSoundPlaying = false;
+            }
         }
     }
 }

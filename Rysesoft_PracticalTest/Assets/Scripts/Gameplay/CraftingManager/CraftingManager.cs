@@ -4,9 +4,13 @@ using Gameplay.UI;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
+using Inventory;
 
 namespace Gameplay
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CraftingManager : MonoBehaviour
     {
         UIManager uIManager;
@@ -15,6 +19,9 @@ namespace Gameplay
         [SerializeField] CraftableItem[] craftableItems;
         CraftingTable craftingTable;
 
+        /// <summary>
+        /// Zenject constructor used to inject required managers at runtime
+        /// </summary>
         [Inject]
         public void Construct(PileManager pileManager, UIManager uIManager, CraftingManagerUI craftingManagerUI, CraftingTable craftingTable)
         {
@@ -33,6 +40,9 @@ namespace Gameplay
             craftingManagerUI.OnCraftItemSelected += SpawnPartsInGrid;
         }
 
+        /// <summary>
+        /// Sends all craftable items to UI so player can see and select them.
+        /// </summary>
         private void PopulateUi()
         {
             if (craftingManagerUI != null)
@@ -63,6 +73,10 @@ namespace Gameplay
 
         }
 
+        /// <summary>
+        /// Spawns multiple weldable parts arranged in a grid so they are not stacked on each other.
+        /// This is used for items that require welding 3–5 separate parts.
+        /// </summary>
         private void SpawnPartsInGrid(CraftableItem craftableItem)
         {
             craftingManagerUI.OnCraftItemSelected -= SpawnPartsInGrid;
@@ -97,6 +111,9 @@ namespace Gameplay
             uIManager.CloseAllwindow();
         }
 
+        /// <summary>
+        /// Called every time a single weldable part is completed.
+        /// </summary>
         private void OnPartWeldCompleted(WeldablePart part, CraftableItem craftableItem)
         {
             completedCount++;
@@ -107,6 +124,9 @@ namespace Gameplay
             }
         }
 
+        /// <summary>
+        /// Spawns the final crafted item and sends it to the crafting pile.
+        /// </summary>
         private void FinalizeCraft(CraftableItem craftableItem)
         {
             // Spawn final crafted item

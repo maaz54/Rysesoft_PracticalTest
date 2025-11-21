@@ -2,7 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+namespace Inventory
 {
-    public string ItemName;
+
+    /// <summary>
+    /// Represents a basic item in the game.
+    /// used as a prefab for crafting or storage.
+    /// </summary>
+    public class Item : MonoBehaviour
+    {
+        public string ItemName;
+    }
 }

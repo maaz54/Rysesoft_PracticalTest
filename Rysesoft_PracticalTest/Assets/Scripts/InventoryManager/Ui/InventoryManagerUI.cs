@@ -3,25 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManagerUI : MonoBehaviour
+namespace Inventory
 {
-    public Action<Item> OnCraftItemSelected;
-    [SerializeField] Transform itemHolder;
-    [SerializeField] InventoryItemUi itemPrefab;
-    [SerializeField] List<InventoryItemUi> uiItems;
-    [SerializeField] List<Item> items;
 
-    public void AddItem(Item item)
+    public class InventoryManagerUI : MonoBehaviour
     {
-        InventoryItemUi inventoryItemUi = Instantiate(itemPrefab, itemHolder);
-        inventoryItemUi.Initialize(item);
-        uiItems.Add(inventoryItemUi);
-        inventoryItemUi.OnItemSelected += OnItemSelected;
-    }
+        public Action<Item> OnCraftItemSelected;
+        [SerializeField] Transform itemHolder;
+        [SerializeField] InventoryItemUi itemPrefab;
+        [SerializeField] List<InventoryItemUi> uiItems;
+        [SerializeField] List<Item> items;
 
-    private void OnItemSelected(Item craftableItem)
-    {
-        OnCraftItemSelected?.Invoke(craftableItem);
-        
+        /// <summary>
+        /// Adds an item to the inventory UI.
+        /// </summary>
+        public void AddItem(Item item)
+        {
+            InventoryItemUi inventoryItemUi = Instantiate(itemPrefab, itemHolder);
+            inventoryItemUi.Initialize(item);
+            uiItems.Add(inventoryItemUi);
+            inventoryItemUi.OnItemSelected += OnItemSelected;
+        }
+
+        /// <summary>
+        /// Internal handler when a UI item is selected.
+        /// Fires the public OnItemSelected event.
+        /// </summary>
+        private void OnItemSelected(Item item)
+        {
+            OnCraftItemSelected?.Invoke(item);
+
+        }
     }
 }
