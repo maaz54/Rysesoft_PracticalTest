@@ -7,8 +7,10 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject InventoryPanel;
     [SerializeField] GameObject CraftingPanel;
+    [SerializeField] GameObject hintPanel;
     [SerializeField] Button craftingbutton;
     [SerializeField] Button Inventorybutton;
+    [SerializeField] Button hintButton;
     [SerializeField] Canvas canvas;
 
 
@@ -16,6 +18,7 @@ public class UIManager : MonoBehaviour
     {
         craftingbutton.onClick.AddListener(OnCraftingButton);
         Inventorybutton.onClick.AddListener(OnInventoryButton);
+        hintButton.onClick.AddListener(ToggleHint);
     }
 
     private void OnCraftingButton()
@@ -36,6 +39,12 @@ public class UIManager : MonoBehaviour
 
         panel.SetActive(true);
     }
+
+    private void ToggleHint()
+    {
+        hintPanel.SetActive(!hintPanel.activeSelf);
+    }
+
 
     public void CloseAllwindow()
     {
