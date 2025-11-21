@@ -100,7 +100,7 @@ namespace Gameplay
         private void OnPartWeldCompleted(WeldablePart part, CraftableItem craftableItem)
         {
             completedCount++;
-
+            part.gameObject.SetActive(false);
             if (completedCount >= craftableItem.ItemToWeild.Length)
             {
                 FinalizeCraft(craftableItem);

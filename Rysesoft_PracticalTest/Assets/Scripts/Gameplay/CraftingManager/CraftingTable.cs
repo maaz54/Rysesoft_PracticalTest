@@ -56,7 +56,7 @@ public class CraftingTable : MonoBehaviour
                 craftingUIPanel.SetActive(!craftingUIPanel.activeSelf); // toggle UI panel
             Hint.SetActive(!craftingUIPanel.activeSelf); // toggle UI panel
         }
-        else if (playerInRange && Input.GetKeyDown(KeyCode.Alpha1))
+        else if (playerInRange && Input.GetKeyDown(KeyCode.R))
         {
             if (PileUIPanel != null)
                 PileUIPanel.SetActive(!PileUIPanel.activeSelf); // toggle UI panel

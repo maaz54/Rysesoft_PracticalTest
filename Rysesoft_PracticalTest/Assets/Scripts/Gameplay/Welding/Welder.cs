@@ -51,6 +51,10 @@ public class Welder : MonoBehaviour
                 currentPart.StartWeld(hit.point);
             }
         }
+        else
+        {
+            StopWeldSound();
+        }
     }
 
     private void PlayWeldSound()
