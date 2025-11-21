@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Inventory
 {
     public class InventoryManager : MonoBehaviour
     {
-        [SerializeField] InventoryManagerUI inventoryUI;
-        [SerializeField] List<Item> storageInventory = new List<Item>();
+        InventoryManagerUI inventoryUI;
+        List<Item> storageInventory = new List<Item>();
 
         [Header("Stack Settings")]
         [SerializeField] Transform stackPoint;      // where the first item appears
         [SerializeField] Vector3 stackOffset = new Vector3(0, 0.2f, 0);
+
+
+        [Inject]
+        public void Construct(InventoryManagerUI inventoryUI)
+        {
+            this.inventoryUI = inventoryUI;
+        }
 
         public void AddToStorage(Item item)
         {

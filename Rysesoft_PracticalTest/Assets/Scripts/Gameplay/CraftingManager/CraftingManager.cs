@@ -3,16 +3,27 @@ using System.Collections.Generic;
 using Gameplay.UI;
 using Unity.Mathematics;
 using UnityEngine;
+using Zenject;
 
 namespace Gameplay
 {
     public class CraftingManager : MonoBehaviour
     {
-        [SerializeField] UIManager uIManager;
-        [SerializeField] PileManager pileManager;
-        [SerializeField] CraftingManagerUI craftingManagerUI;
+        UIManager uIManager;
+        PileManager pileManager;
+        CraftingManagerUI craftingManagerUI;
         [SerializeField] CraftableItem[] craftableItems;
-        [SerializeField] CraftingTable craftingTable;
+        CraftingTable craftingTable;
+
+        [Inject]
+        public void Construct(PileManager pileManager, UIManager uIManager, CraftingManagerUI craftingManagerUI, CraftingTable craftingTable)
+        {
+            this.pileManager = pileManager;
+            this.uIManager = uIManager;
+            this.craftingManagerUI = craftingManagerUI;
+            this.craftingTable = craftingTable;
+        }
+
 
         void Start()
         {

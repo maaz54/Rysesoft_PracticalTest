@@ -688,8 +688,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e708298e43aa01e478a5851f9089b063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InventoryManager: {fileID: 1495942805}
-  pileUIManager: {fileID: 1852052533}
   storageInventory: []
 --- !u!1 &267713670
 GameObject:
@@ -1455,14 +1453,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271ac327504af62478a5a79a5b5e9789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIManager: {fileID: 818038447}
-  pileManager: {fileID: 229378875}
-  craftingManagerUI: {fileID: 1561622747}
   craftableItems:
   - {fileID: 11400000, guid: 04131f2151e09214b9654950a1083de3, type: 2}
   - {fileID: 11400000, guid: b731eb8a8b49c964380af8e1fdc945d8, type: 2}
   - {fileID: 11400000, guid: d1664b4b3316f8b47a99fb2cdb718ba4, type: 2}
-  craftingTable: {fileID: 1325591345}
 --- !u!1 &549255467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2905,6 +2899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1238834494}
   - component: {fileID: 1238834493}
+  - component: {fileID: 1238834495}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -2926,7 +2921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 0}
+  - {fileID: 1238834495}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -2959,6 +2954,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1238834495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238834492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5584628dac9de4197ec520d94c76e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uIManager: {fileID: 818038447}
+  inventoryManager: {fileID: 1495942805}
+  pileManager: {fileID: 229378875}
+  craftingManager: {fileID: 497070322}
+  craftingManagerUI: {fileID: 1561622747}
+  pileUIManager: {fileID: 1852052533}
+  inventoryManagerUI: {fileID: 1905427695}
+  craftingTable: {fileID: 1325591345}
 --- !u!1 &1240486932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3662,8 +3677,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e47361ff4ee1f04b893acbd7e1af216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 1905427695}
-  storageInventory: []
   stackPoint: {fileID: 1653789407}
   stackOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &1561622744

@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using Inventory;
 using UnityEngine;
+using Zenject;
 
 public class PileManager : MonoBehaviour
 {
-    [SerializeField] InventoryManager InventoryManager;
-    [SerializeField] PileUIManager pileUIManager;
+    InventoryManager InventoryManager;
+    PileUIManager pileUIManager;
     [SerializeField] List<Item> storageInventory = new List<Item>();
+
+    [Inject]
+    public void Construct(InventoryManager InventoryManager, PileUIManager pileUIManager)
+    {
+        this.InventoryManager = InventoryManager;
+        this.pileUIManager = pileUIManager;
+    }
 
     private void Start()
     {
