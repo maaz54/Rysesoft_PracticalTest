@@ -5,8 +5,10 @@ using UnityEngine;
 public class Welder : MonoBehaviour
 {
     Camera cam;
-
     private WeldablePart currentPart;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip weldSound;
+    private bool isWeldingSoundPlaying = false;
 
     private void Start()
     {
@@ -21,6 +23,7 @@ public class Welder : MonoBehaviour
         }
         else
         {
+            StopWeldSound();
             if (currentPart != null)
             {
                 currentPart.StopWeld();
@@ -44,9 +47,29 @@ public class Welder : MonoBehaviour
                     currentPart?.StopWeld();
                     currentPart = wp;
                 }
-
+                PlayWeldSound();
                 currentPart.StartWeld(hit.point);
             }
+        }
+    }
+
+    private void PlayWeldSound()
+    {
+        if (!isWeldingSoundPlaying)
+        {
+            audioSource.clip = weldSound;
+            audioSource.loop = true;
+            audioSource.Play();
+            isWeldingSoundPlaying = true;
+        }
+    }
+
+    private void StopWeldSound()
+    {
+        if (isWeldingSoundPlaying)
+        {
+            audioSource.Stop();
+            isWeldingSoundPlaying = false;
         }
     }
 }
